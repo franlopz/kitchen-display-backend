@@ -95,7 +95,7 @@ export const userLogin = async (
       res.status(401).json('Incorrect pin')
       return
     }
-    const { name: userName, role: roleId, _id: userId } = user?.users[0]
+    const { name: userName, role: roleId, _id: userId, areas } = user?.users[0]
     const role = await Role.findById(roleId)
 
     if (role === null) {
@@ -104,7 +104,7 @@ export const userLogin = async (
     }
     const { name: roleName } = role
 
-    res.json({ userId, roleName, userName })
+    res.json({ userId, roleName, userName, areas })
   } catch (error) {
     res.json(error)
   }
