@@ -10,9 +10,11 @@ interface TagInterface {
   name: string
 }
 interface ItemInterface {
+  categorie: string
   quantity: number
   name: string
   portion: string
+  uid: string
   status: 'active' | 'prepared' | 'voided'
   isGift: boolean
   tags: TagInterface[]
@@ -23,9 +25,11 @@ export interface OrderInterface {
   area: string
   screen: string
   type: TypeOrderInterface
-  status: 'active' | 'prepared' | 'voided'
+  isDone: Boolean
+  isVoided: Boolean
   prepareAt: Date
   number: number
+  tid: number
   table: string
   seller: string
   orders: ItemInterface[]
@@ -40,17 +44,26 @@ const orderSchema = new Schema<OrderInterface>(
       name: { type: String, required: true },
       color: { type: String, required: false }
     },
-    status: { type: String, required: false, default: 'active' },
+    isDone: { type: Boolean, required: false, default: false },
+    isVoided: { type: Boolean, required: false, default: false },
     prepareAt: { type: Date, required: false },
     number: { type: Number, required: true },
+    tid: { type: Number, required: true },
     table: { type: String, required: true },
     seller: { type: String, required: true },
     orders: [
       {
         quantity: { type: Number, required: true },
         name: { type: String, required: true },
+        categorie: { type: String, required: true },
         portion: { type: String, required: true },
-        status: { type: String, required: false, default: 'active' },
+        uid: { type: String, required: true },
+        status: {
+          type: String,
+          required: false,
+          enum: ['active', 'prepared', 'voided'],
+          default: 'active'
+        },
         isGift: { type: Boolean, required: true },
         tags: [
           {
