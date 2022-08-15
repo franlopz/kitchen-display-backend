@@ -32,8 +32,3 @@ io.on('connection', (socket) => {
 })
 
 server.listen(3333)
-
-setInterval(() => {
-  io.to('62e2152214f22809d4ddbd47').emit('Principal', 'test')
-  console.log('test')
-}, 2000)
