@@ -10,7 +10,7 @@ interface TagInterface {
   name: string
 }
 interface ItemInterface {
-  categorie: string
+  category: string
   quantity: number
   name: string
   portion: string
@@ -55,7 +55,7 @@ const orderSchema = new Schema<OrderInterface>(
       {
         quantity: { type: Number, required: true },
         name: { type: String, required: true },
-        categorie: { type: String, required: true },
+        category: { type: String, required: true },
         portion: { type: String, required: true },
         uid: { type: String, required: true },
         status: {
