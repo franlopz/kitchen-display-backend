@@ -4,6 +4,7 @@ import { Server as WebSocketServer } from 'socket.io'
 import http from 'http'
 import * as authJwtSocket from './middlewares/authJwtSocket'
 import { getAccountId } from './libs/getAccountId'
+import config from './config'
 
 const server = http.createServer(app)
 export const io = new WebSocketServer(server, { cors: { origin: true } })
@@ -31,4 +32,4 @@ io.on('connection', (socket) => {
   console.log(socket.rooms)
 })
 
-server.listen(3333)
+server.listen(config.PORT)
