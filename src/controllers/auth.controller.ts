@@ -6,10 +6,15 @@ import jwt, { JwtPayload } from 'jsonwebtoken'
 import { generateToken, generateRefreshToken } from '../libs/generateToken'
 import * as authJwt from '../middlewares/authJwt'
 import Role from '../models/role'
+import isEmail from '../libs/isEmail'
 
 export const signUp = async (req: Request, res: Response): Promise<void> => {
   try {
     const { email, password, business, confirmPassword } = req.body
+    if (isEmail(email) === false) {
+      res.status(400).json('Email not valid')
+      return
+    }
     const salt = bcrypt.genSaltSync(10)
     const hash = bcrypt.hashSync(password, salt)
 
