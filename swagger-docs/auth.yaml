@@ -1,0 +1,94 @@
+paths:
+  '/auth/login/':
+    post:
+      tags:
+        - auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+                - email
+                - password
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+  '/auth/signup/':
+    post:
+      description: 'Creates new account'
+      tags:
+        - auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                business:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                confirmPassword:
+                  type: string
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+  '/auth/user/':
+    post:
+      description: 'User login with a pin code'
+      tags:
+        - auth
+      parameters:
+        - in: header
+          name: token
+          schema:
+            type: string
+          required: true
+        - in: header
+          name: refresh-token
+          schema:
+            type: string
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pin:
+                  example: 1234
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+  '/auth/refresh/token/':
+    post:
+      description: 'Refresh token'
+      tags:
+        - auth
+      parameters:
+        - name: refresh-token
+          in: header
+          type: string
+          description: a valid refresh token
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized

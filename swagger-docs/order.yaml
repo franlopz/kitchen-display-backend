@@ -1,0 +1,166 @@
+paths:
+  '/order/submit/':
+    post:
+      tags:
+        - order
+      parameters:
+        - in: header
+          name: token
+          schema:
+            type: string
+          required: true
+        - in: header
+          name: refresh-token
+          schema:
+            type: string
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                area:
+                  type: string
+                screen:
+                  type: string
+                type:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    color:
+                      type: string
+                number:
+                  type: integer
+                tid:
+                  type: integer
+                table:
+                  type: string
+                seller:
+                  type: string
+                orders:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      uid:
+                        type: string
+                      category:
+                        type: string
+                      quantity:
+                        type: integer
+                      name:
+                        type: string
+                      portion:
+                        type: string
+                      isGift:
+                        type: boolean
+                      tags:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            quantity:
+                              type: integer
+                            name:
+                              type: string
+        responses:
+          '401':
+            description: Unauthorized
+  '/order/getAll/':
+    get:
+      description: ''
+      tags:
+        - order
+      parameters:
+        - in: header
+          name: token
+          schema:
+            type: string
+          required: true
+        - in: header
+          name: refresh-token
+          schema:
+            type: string
+          required: true
+        - in: query
+          name: area
+          schema:
+            type: string
+        - in: query
+          name: screen
+          schema:
+            type: string
+        - in: query
+          name: status
+          schema:
+            type: string
+            enum: [active, prepared, voided]
+            default: active
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+  '/order/getById/':
+    get:
+      description: ''
+      tags:
+        - order
+      parameters:
+        - in: header
+          name: token
+          schema:
+            type: string
+          required: true
+        - in: header
+          name: refresh-token
+          schema:
+            type: string
+          required: true
+        - in: query
+          name: orderId
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+  '/order/updateOrderStatus/':
+    patch:
+      description: ''
+      tags:
+        - order
+      parameters:
+        - in: header
+          name: token
+          schema:
+            type: string
+          required: true
+        - in: header
+          name: refresh-token
+          schema:
+            type: string
+          required: true
+        - in: query
+          name: _id
+          schema:
+            type: string
+        - in: query
+          name: isDone
+          schema:
+            type: boolean
+        - in: query
+          name: isVoided
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized

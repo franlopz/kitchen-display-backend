@@ -1,0 +1,54 @@
+paths:
+  '/setup/initialize/':
+    post:
+      description: ''
+      tags:
+        - setup
+      parameters:
+        - in: header
+          name: token
+          schema:
+            type: string
+          required: true
+        - in: header
+          name: refresh-token
+          schema:
+            type: string
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                screens:
+                  type: object
+                  properties:
+                    nameOfArea:
+                      description: nameOfArea is a dynamic key.
+                      type: array
+                      items:
+                        type: string
+                users:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      userName:
+                        type: string
+                      pin:
+                        type: string
+                      role:
+                        type: string
+                      screens:
+                        type: object
+                        properties:
+                          nameOfArea:
+                            description: nameOfArea is a dynamic key.
+                            type: array
+                            items:
+                              type: string
+      responses:
+        '401':
+          description: Unauthorized
