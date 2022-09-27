@@ -1,17 +1,8 @@
-import { RequestHandler, Response, Router } from 'express'
+import { RequestHandler, Router } from 'express'
 import * as authController from '../controllers/auth.controller'
 import * as authJwt from '../middlewares/authJwt'
 
 const router = Router()
-
-router.get(
-  '/',
-  [authJwt.verifyRefreshToken, authJwt.verifyToken],
-  (_request: authJwt.accountIdAuthRequest, _response: Response) => {
-    console.log(_request.accountId)
-    return _response.json('xs')
-  }
-)
 
 router.post('/signup/', (async (request, response) => {
   await authController.signUp(request, response)
